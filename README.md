@@ -1301,6 +1301,33 @@ class Car {
 const car = new Car("Ford", "F-150", "red").setColor("pink").save();
 ```
 
+Returning new instance instead of `this` will help to maintain immutability whiile chaining.
+```javascript
+class Car {
+  constructor(make, model, color) {
+    this.make = make;
+    this.model = model;
+    this.color = color;
+  }
+
+  setColor(color) {
+    /* NOTE: Returning new instance with updated value.
+       This forces immutability while chaining.
+    */
+    return new Car(this.make, this.model, color);
+  }
+
+  save() {
+    console.log(this.make, this.model, this.color);
+    // NOTE: Nothing has changed here, returning this for chaining
+    return this;
+  }
+}
+
+const car = new Car("Ford", "F-150", "red").setColor("pink").save();
+```
+
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Prefer composition over inheritance
